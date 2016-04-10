@@ -130,16 +130,16 @@ function createActionReducer(configs, dispatch) {
                 if(checkType.isGeneratorFunction(item.action)) {
                     co(item.action, args)
                     .then(function(res) {
-                        dispatch({ status: true, errmsg: '', data: res }, args, type, asContext, asImmutable);
+                        dispatch(res, args, type, asContext, asImmutable);
                     })
                     .catch(function(err) {
-                        dispatch({ status: true, errmsg: err.errmsg, data: err }, args, type, asContext, asImmutable);
+                        dispatch({ status: false, errmsg: err }, args, type, asContext, asImmutable);
                     });
                     return ;
                 }
                 //如果item.action是function则自动执行
                 if(checkType.isPlainFunction(item.action)) {
-                    dispatch({ status: true, errmsg: '', data: item.action(args) }, args, type, asContext, asImmutable);
+                    dispatch(item.action(args), args, type, asContext, asImmutable);
                     return ;
                 }
                 //出入的action非法则抛出异常

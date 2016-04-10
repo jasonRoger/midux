@@ -4,8 +4,6 @@ import ReactDom from 'react-dom';
 import Immutable from 'immutable';
 import { Provider, createStore } from '../src/index';
 
-console.log(createStore)
-
 var store = createStore(config, config);
 
 store.subscribe((state, context) => {

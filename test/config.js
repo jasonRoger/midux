@@ -21,7 +21,7 @@ var hotelConfig = {
             return con;
         },
         reducer: function(state, action, args) {
-            return Object.assign(state, action.data);
+            return Object.assign(state, action);
             //return state.merge(action.data);
         }
     }]
@@ -56,6 +56,5 @@ var flightConfig = {
 
 //module.exports = hotelConfig;
 module.exports = {
-    hotel: hotelConfig,
-    flight: flightConfig
+    hotel: hotelConfig
 };
