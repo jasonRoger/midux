@@ -2,7 +2,7 @@ import config from './config';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import Immutable from 'immutable';
-import { Provider, createStore } from '../src/index';
+import { createStore, Provider } from '../src/index';
 
 var store = createStore(config, config);
 

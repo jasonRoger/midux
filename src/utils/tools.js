@@ -2,7 +2,7 @@ import checkType from './checkType';
 /**
 *实现对象的复制
 */
-function assign() {
+export function assign() {
     var isEqual = true;
     function _assign() {
         /*
@@ -67,8 +67,4 @@ function assign() {
         isEqual: isEqual,
         data: data
     }
-}
-
-export default {
-    assign
 }

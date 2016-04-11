@@ -8,9 +8,9 @@ var utils = {
     assign: function() {
         return assign.apply(null, arguments).data;
     }
-}
+};
 
-export default {
+export {
     createStore,
     Provider,
     utils
