@@ -19,7 +19,6 @@ function buildQuery(searchObj) {
 * @data: 需要发送的数据
 */
 //通用的请求数据函数
-console.log(this.fetch)
 function fetchData(params) {
     var url, hasSearch, isGet, data, options;
     isGet = !params.method || params.method.toLowerCase() !== 'post';
@@ -34,7 +33,7 @@ function fetchData(params) {
         },
         body: JSON.stringify(data)
     };
-	console.log('url', url);
+	console.log('Promise', Promise);
 	return new Promise(function(resolve, reject) {
 		fetch(url, options)
 	    .then(function(res) {
