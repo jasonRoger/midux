@@ -37,8 +37,7 @@ gulp.task("webpackMidux", function() {
     .pipe(gulp.dest("./lib/"));
 });
 gulp.task("watch", function() {
-    gulp.watch(["./test/**/*.js"], ["webpackApp"]);
-    gulp.watch(["./src/**/*.js"], ["webpackMidux"]);
+    gulp.watch(["./src/**/*.js", "./test/**/*.js"], ["webpackApp", "webpackMidux"]);
     gulp.watch(["./lib/**/*.js", "./dist/**/*.js", "./test/**/*.@(js|html)"], ["reload"]);
 });
 gulp.task("server", ["browserSyncServer", "watch"]);

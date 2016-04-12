@@ -16,9 +16,13 @@ var hotelConfig = {
         }
     },{
         name: 'fetchDetail',
-        action: function* (args) {
-            var con = yield fetchData({ url: '/mock/detail.json' });
-            return con;
+        // action: function* (args) {
+        //     console.log('test')
+        //     var con = yield fetchData({ url: '/mock/detail.json' });
+        //     return con;
+        // },
+        action: {
+            url: '/mock/detail.json'
         },
         reducer: function(state, action, args) {
             return Object.assign(state, action);
