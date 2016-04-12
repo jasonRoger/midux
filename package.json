@@ -10,11 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "babel-core": "^6.7.4",
-    "babel-polyfill": "^6.7.4",
-    "babel-preset-stage-0": "^6.5.0",
-    "react-redux": "^4.4.1",
-    "redux-immutablejs": "0.0.8",
     "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-polyfill": "^6.7.4",
     "babel-preset-es2015": "^6.3.13",
     "babel-preset-react": "^6.3.13",
     "babel-preset-stage-0": "^6.3.13",
@@ -29,7 +26,10 @@
     "path": "^0.12.7",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "react-redux": "^4.4.1",
+    "redux-immutablejs": "0.0.8",
     "vinyl-named": "^1.1.0",
-    "webpack": "^1.12.2"
+    "webpack": "^1.12.2",
+    "whatwg-fetch": "^0.11.0"
   }
 }

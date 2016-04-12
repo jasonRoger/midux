@@ -62,6 +62,7 @@ function co(gen) {
       var ret;
       try {
         ret = gen.next(res);
+        console.log('gen', ret);
       } catch (e) {
         return reject(e);
       }
@@ -95,6 +96,7 @@ function co(gen) {
      */
 
     function next(ret) {
+        console.log('next', 'next');
       if (ret.done) return resolve(ret.value);
       var value = toPromise.call(ctx, ret.value);
       if (value && checkType.isPromise(value)) return value.then(onFulfilled, onRejected);

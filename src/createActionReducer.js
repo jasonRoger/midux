@@ -116,7 +116,7 @@ function createActionReducer(configs, dispatch) {
                 if(checkType.isObject(item.action)) {
                     //修正url和data
                     if(!item.action.url) throw new Error(`stateName为${stateName}的配置文件对应的action配置如果为对象，则必须有url属性`);
-                    item.action.data = checkType.isObject(args) ? args : {};
+                    item.action.data = args && checkType.isObject(args) ? args : {};
             		fetchData(item.action)
                     .then(function(res) {
                         dispatch({ status: true, errmsg: '', data: res }, args, type, asContext, asImmutable);
@@ -128,11 +128,14 @@ function createActionReducer(configs, dispatch) {
                 }
                 //如果item.action是Gernerator则自动执行
                 if(checkType.isGeneratorFunction(item.action)) {
+                    console.log('Generator init')
                     co(item.action, args)
                     .then(function(res) {
+                        console.log('Generator then')
                         dispatch(res, args, type, asContext, asImmutable);
                     })
                     .catch(function(err) {
+                        console.log('Generator catch')
                         dispatch({ status: false, errmsg: err }, args, type, asContext, asImmutable);
                     });
                     return ;

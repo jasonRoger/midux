@@ -30,6 +30,7 @@ function isGenerator(obj) {
  * @api private
  */
 function isGeneratorFunction(obj) {
+  if(!obj) return false;
   var constructor = obj.constructor;
   if (!constructor) return false;
   if ('GeneratorFunction' === constructor.name || 'GeneratorFunction' === constructor.displayName) return true;
@@ -44,6 +45,7 @@ function isGeneratorFunction(obj) {
  * @api private
  */
 function isObject(val) {
+  if(!val) return false;
   return Object == val.constructor;
 }
 /**
@@ -54,6 +56,7 @@ function isObject(val) {
  * @api private
  */
 function isArray(val) {
+  if(!val) return false;
   return Array == val.constructor;
 }
 /**
@@ -64,6 +67,7 @@ function isArray(val) {
  * @api private
  */
 function isPlainFunction(obj) {
+  if(!obj) return false;
   return Function == obj.constructor;
 }
 /**
