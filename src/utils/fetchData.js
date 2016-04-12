@@ -19,7 +19,10 @@ function buildQuery(searchObj) {
 * @data: 需要发送的数据
 */
 //通用的请求数据函数
-console.log(this.fetch)
+var fetch1 = require('./fetch.js');
+
+var Promise = require('promise');
+
 function fetchData(params) {
     var url, hasSearch, isGet, data, options;
     isGet = !params.method || params.method.toLowerCase() !== 'post';
@@ -34,14 +37,14 @@ function fetchData(params) {
         },
         body: JSON.stringify(data)
     };
-	console.log('url', url);
+	console.log('fetch1', fetch1)
 	return new Promise(function(resolve, reject) {
-		fetch(url, options)
+		fetch1.fetch(url, options)
 	    .then(function(res) {
 			console.log('fetchData1', res);
 			var json = res.json();
 			console.log('fetchData2', json);
-			json.then(d1 => console.log(d1)).catch(err => console.log(err))
+			json.then(d1 => console.log('d1', d1)).catch(err => console.log(err))
 			return json;
 			console.log('fetchData3', json);
 			if(res.ok) return res.json();
