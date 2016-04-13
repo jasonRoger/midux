@@ -19,12 +19,13 @@ function buildQuery(searchObj) {
 * @data: 需要发送的数据
 */
 //通用的请求数据函数
-var fetch1 = require('./fetch.js');
 
-var Promise = require('promise');
+//import fetch1 from './fetch.js';
+
+import Promise from 'promise';
 
 function fetchData(params) {
-    var url, hasSearch, isGet, data, options;
+	var url, hasSearch, isGet, data, options;
     isGet = !params.method || params.method.toLowerCase() !== 'post';
     hasSearch = params.url.indexOf('?') !== -1;
     data = params.data || {};
@@ -37,25 +38,23 @@ function fetchData(params) {
         },
         body: JSON.stringify(data)
     };
-	console.log('fetch1', fetch1)
-	return new Promise(function(resolve, reject) {
-		fetch1.fetch(url, options)
-	    .then(function(res) {
-			console.log('fetchData1', res);
-			var json = res.json();
-			console.log('fetchData2', json);
-			json.then(d1 => console.log('d1', d1)).catch(err => console.log(err))
-			return json;
-			console.log('fetchData3', json);
-			if(res.ok) return res.json();
-			reject({ errcode: res.status, errmsg: res.statusText })
-		})
-		.then(function(json) {
-			console.log('fetchData4', json);
-			if(typeof json.ret === 'undefined') return resolve(json);
-			json.ret ? resolve(json.data) : reject(json);
-		})
-	    .catch(function(err) { console.log(err);reject({ errmsg: err, errcode: 500})});
+    return fetch(url, options)
+    .then(res => {
+		return res.ok ? res.json() : {
+			ret: false,
+			errcode: res.status,
+			errmsg: res.statusText,
+			data: {}
+		};
+	})
+    .then( json => json)
+    .catch(err => {
+		return {
+			ret: false,
+			errcode: 500,
+			errmsg: err,
+			data: {}
+		}
 	});
 };
 
