@@ -11,6 +11,18 @@ store.subscribe((state, context) => {
     console.log('context', context);
 });
 
+import ajax from '../src/utils/ajax';
+
+ajax({
+    url: '/mock/detail.json',
+    success: function(data) {
+        console.log('ajax', data);
+    },
+    error: function(err) {
+        console.log(err)
+    }
+});
+
 class App extends Component {
     render() {
         var state = this.props.state;
