@@ -109,7 +109,7 @@ function createActionReducer(configs, dispatch) {
             actions[item.name] = function(args) {
                 //如果item.action没传或者可以转化为false则直接触发dispatch
                 if(!item.action) {
-                    dispatch({ status: true, errmsg: '', data: args }, args, type, asContext, asImmutable);
+                    dispatch(args, args, type, asContext, asImmutable);
                     return ;
                 }
                 //如果item.action是object则发送fetch请求
@@ -117,26 +117,21 @@ function createActionReducer(configs, dispatch) {
                     //修正url和data
                     if(!item.action.url) throw new Error(`stateName为${stateName}的配置文件对应的action配置如果为对象，则必须有url属性`);
                     item.action.data = args && checkType.isObject(args) ? args : {};
-            		fetchData(item.action)
+                    //item.action 抛出的异常在fetchData内部已经捕获，
+                    //而且dispatch 抛出的异常不需要捕获，所以不需要catch
+                    fetchData(item.action)
                     .then(function(res) {
-                        dispatch({ status: true, errmsg: '', data: res }, args, type, asContext, asImmutable);
+                        dispatch(res, args, type, asContext, asImmutable);
                     })
-                    .catch(function(err) {
-                        dispatch({ status: false, errmsg: err.errmsg, data: res }, args, type, asContext, asImmutable);
-                    });
                     return ;
                 }
                 //如果item.action是Gernerator则自动执行
                 if(checkType.isGeneratorFunction(item.action)) {
-                    console.log('Generator init')
+                    //item.action 抛出的异常在co内部捕获并抛出给item.action,所以需要在item.action里try catch，
+                    //而且dispatch 抛出的异常不需要捕获，所以不需要catch
                     co(item.action, args)
                     .then(function(res) {
-                        console.log('Generator then')
                         dispatch(res, args, type, asContext, asImmutable);
-                    })
-                    .catch(function(err) {
-                        console.log('Generator catch')
-                        dispatch({ status: false, errmsg: err }, args, type, asContext, asImmutable);
                     });
                     return ;
                 }
