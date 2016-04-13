@@ -1,3 +1,4 @@
+import ajax from './ajax';
 //更具传入的对象构建query（以&作为分割）字符串返回
 function buildQuery(searchObj) {
 	var query = '';
@@ -20,11 +21,7 @@ function buildQuery(searchObj) {
 */
 //通用的请求数据函数
 
-//import fetch1 from './fetch.js';
-
-import Promise from 'promise';
-
-function fetchData(params) {
+export function fetchData(params) {
 	var url, hasSearch, isGet, data, options;
     isGet = !params.method || params.method.toLowerCase() !== 'post';
     hasSearch = params.url.indexOf('?') !== -1;
@@ -58,4 +55,19 @@ function fetchData(params) {
 	});
 };
 
-export default fetchData;
+export function ajaxData(params) {
+	return new Promise((resolve, reject) => {
+		params.success = function(res) {
+			resolve(res);
+		};
+		params.error = function(err) {
+			reject({
+				ret: false,
+				errcode: err && err.status || 500,
+				errmsg: err && err.responseText || err,
+				data: {}
+			});
+		};
+		ajax(params);
+	});
+};

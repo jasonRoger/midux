@@ -1,7 +1,7 @@
 import co from './utils/co';
 import checkType from './utils/checkType';
 import { assign } from './utils/tools';
-import fetchData from './utils/fetchData';
+import { fetchData, ajaxData } from './utils/fetchData';
 import Immutable from 'immutable';
 /**
 * 检查reducer的返回值是否为reducer
@@ -119,10 +119,13 @@ function createActionReducer(configs, dispatch) {
                     item.action.data = args && checkType.isObject(args) ? args : {};
                     //item.action 抛出的异常在fetchData内部已经捕获，
                     //而且dispatch 抛出的异常不需要捕获，所以不需要catch
-                    fetchData(item.action)
+                    ajaxData(item.action)
                     .then(function(res) {
                         dispatch(res, args, type, asContext, asImmutable);
                     })
+                    .catch(err => {
+                        dispatch(err, args, type, asContext, asImmutable);
+                    });
                     return ;
                 }
                 //如果item.action是Gernerator则自动执行
